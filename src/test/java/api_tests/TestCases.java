@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 public class TestCases {
@@ -55,7 +56,8 @@ public class TestCases {
 
     @Test
     public void validateSchema(){
-        RestAssured.given().get("https://reqres.in/api/users?page=2").then().statusCode(200)
-                .body("data[4].first_name", equalTo("George"));
+        RestAssured.given().get("https://reqres.in/api/users?page=2").then()
+                .assertThat().body(matchesJsonSchemaInClasspath("schema.json"))
+                .statusCode(200);
     }
 }
