@@ -11,9 +11,8 @@ public class TestCases {
 
     @Test
     public void getAllUsers(){
-        RestAssured.when().get("https://reqres.in/api/users?page=2").then().statusCode(200)
+        RestAssured.given().get("https://reqres.in/api/users?page=2").then().statusCode(200)
                 .body("data[4].first_name", equalTo("George"));
-
     }
 
     @Test
@@ -41,7 +40,6 @@ public class TestCases {
     @Test
     public void patchUser(){
         HashMap data = new HashMap<>();
-        data.put("name", "morpheus");
         data.put("jop", "Principal");
 
         RestAssured.given().contentType("application/json").accept("application/json").when()
@@ -53,5 +51,11 @@ public class TestCases {
     public void deleteUser(){
         RestAssured.when()
                 .delete("https://reqres.in/api/users/431").then().statusCode(204).log().body();
+    }
+
+    @Test
+    public void validateSchema(){
+        RestAssured.given().get("https://reqres.in/api/users?page=2").then().statusCode(200)
+                .body("data[4].first_name", equalTo("George"));
     }
 }
