@@ -4,8 +4,12 @@ import io.restassured.response.Response;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.Order;
 import org.testing.model.User;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UserTests {
     User user;
     @Before
@@ -21,6 +25,7 @@ public class UserTests {
     }
 
     @Test()
+    @Order(1)
     public void testCreateUser(){
         Response response = UserAPI.createUser(user);
         response.then().log().all();
@@ -28,6 +33,7 @@ public class UserTests {
     }
 
     @Test
+    @Order(2)
     public void testGetUser(){
         Response response = UserAPI.getUser(user.getUsername());
         response.then().log().all();
@@ -35,6 +41,7 @@ public class UserTests {
     }
 
     @Test
+    @Order(3)
     public void testUpdateUser(){
         user.setFirstName("Hayden");
         user.setLastName("Lebsack");
@@ -47,6 +54,7 @@ public class UserTests {
     }
 
     @Test
+    @Order(4)
     public void testDeleteUser(){
         Response response = UserAPI.deleteUser(user.getUsername());
         response.then().log().all();
