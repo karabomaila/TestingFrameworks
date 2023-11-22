@@ -36,8 +36,8 @@ public class UserTests {
 
     @Test
     public void testUpdateUser(){
-        user.setLastName("");
-        user.setLastName("");
+        user.setFirstName("Hayden");
+        user.setLastName("Lebsack");
         Response response = UserAPI.updateUser(user.getUsername(), user);
         response.then().log().all();
         Assert.assertEquals(200, response.getStatusCode());
